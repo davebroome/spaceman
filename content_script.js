@@ -27,26 +27,28 @@ $diffHeader = $("#diff p.explain");
 // Only run on diff pages
 if ($diffHeader.length != 0) {
 
-    // Create button
-    var $spaceButton = $("<a>").attr("id", "togglewhitespace");
-    $spaceButton.addClass("minibutton");
-    $spaceButton.css("marginRight", "12px");
-
-    // Label & href
-    if ($.getUrlVar("w") != null) {
-        $spaceButton.text("Show All Whitespace");
-        $spaceButton.attr("href", window.location.pathname);
-    } else {
-        $spaceButton.text("Collapse Whitespace");
-        $spaceButton.attr("href", window.location.pathname +"?w=1");
+    function whitespaceShowing() {
+        return $.getUrlVar("w") == null;
     }
 
-    // Insert into DOM
+    function toggleWhitespace() {
+        if (whitespaceShowing()) {
+            window.location = window.location.pathname +"?w=1";
+        } else {
+            window.location = window.location.pathname;
+        }
+    }
+
+    // Button
+    var $spaceButton = $("<a>").attr("id", "togglewhitespace");
+    $spaceButton.addClass("minibutton").css("marginRight", "12px");
+    $spaceButton.text(whitespaceShowing() ? "Collapse Whitespace" : "Show All Whitespace");
+    $spaceButton.on("click", function(event) { toggleWhitespace(); });
     $diffHeader.append($spaceButton);
 
     // Keyboard shortcut
-    $(document).bind('keydown', 'Alt+Shift+W', function(){
-        window.location = $('#togglewhitespace').attr("href");
+    $(document).bind('keydown', 'Alt+Shift+W', function() {
+        toggleWhitespace();
     });
 
 }
