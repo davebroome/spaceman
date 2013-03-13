@@ -1,4 +1,4 @@
-spaceman
+Spaceman
 ========
 
-Adds a button to toggle whitespace on GitHub diffs. You can also activate with Alt+Shift+W.
+Chrome extension to toggle whitespace on GitHub diffs. Adds a button and keyboard shortcut — Alt+Shift+W.
